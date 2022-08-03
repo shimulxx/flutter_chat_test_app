@@ -52,7 +52,7 @@ class ChatListItem extends StatelessWidget {
                     const SizedBox(height: 5,),
                     Row(
                       children: [
-                        for(var i = 1; i <= (isDelivered ? 2 : 1); ++i) Transform.scale(scale: 2, child: const Icon(Icons.check, size: 6, )),
+                        for(var i = 1; i <= (isDelivered ? 2 : 1); ++i) Transform.scale(scale: 2, child: const Icon(Icons.check, size: 6)),
                         const SizedBox(width: 5,),
                         Text(lastChat, style: const TextStyle(fontSize: 11),)
                       ],

@@ -8,7 +8,7 @@ import 'package:flutter_chat_test_app/screen/chat_list_screen/data_model/chat_it
 import 'app_router.dart';
 
 void main() {
-  registerAll();
+  registerAllDependency();
   runApp(const MyApp());
 }
 
