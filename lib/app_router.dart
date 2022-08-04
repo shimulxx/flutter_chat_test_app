@@ -10,14 +10,14 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        // return MaterialPageRoute(
-        //   builder: (context) => BlocProvider(
-        //     create: (context) => di<ChatListScreenCubit>()..loadData(),
-        //     child: const ChatListBody(),
-        //   ),
-        // );
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => di<ChatListScreenCubit>()..loadData(),
+            child: const ChatListBody(),
+          ),
+        );
         //return MaterialPageRoute(builder: (context) => const ProfileScreenBody());
-        return MaterialPageRoute(builder: (context) => const ChatDetailsScreenBody());
+        //return MaterialPageRoute(builder: (context) => const ChatDetailsScreenBody());
       default: return null;
     }
   }

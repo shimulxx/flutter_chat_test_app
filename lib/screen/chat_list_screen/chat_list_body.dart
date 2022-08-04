@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
+import 'package:flutter_chat_test_app/screen/alert_dialog/app_dialog.dart';
+import 'package:flutter_chat_test_app/screen/alert_dialog/inner_widget/drop_down.dart';
+import '../alert_dialog/data_model/drop_down_data.dart';
+import '../alert_dialog/dialog_body.dart';
 import 'controller/list_screen_cubit.dart';
 import 'controller/list_screen_state.dart';
 import 'inner_widget/inner_widget/search_text_field.dart';
@@ -13,6 +18,14 @@ class ChatListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ChatListScreenCubit>();
+    print('list generated');
+    final items = <AlertDialogDropDownData>[];
+    for(var i = 1; i <= 5; ++i) {
+      items.add(AlertDialogDropDownData(id: i.toString(), name: 'Shimul$i', imageUrl: kAvatarDefaultPhotoUrl));
+    }
+    // print(items[0].hashCode);
+    // print(items[1].hashCode);
+    // print(items[0] == items[0]);
     return Scaffold(
       appBar: AppBar(title: const Text('Chat List Screen')),
       floatingActionButton: FloatingActionButton(
@@ -21,8 +34,11 @@ class ChatListBody extends StatelessWidget {
         backgroundColor: const Color(0xff141414),
         //Theme.of(context).backgroundColor,
         child: const Icon(Icons.add, color: Colors.white),
-        onPressed: () {},
+        onPressed: () { AlertDialogWork.showAddAlertDialog(context); },
       ),
+      // body: Center(
+      //   child: AddAlertDialogBody(items: items),
+      // ),
       body: Column(
         children: [
           const SizedBox(height: 16),
@@ -41,3 +57,5 @@ class ChatListBody extends StatelessWidget {
     );
   }
 }
+
+
