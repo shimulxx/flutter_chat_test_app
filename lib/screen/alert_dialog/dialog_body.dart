@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/controller/alert_dialog_cubit.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/controller/alert_dialog_state.dart';
-import 'inner_widget/drop_down.dart';
+import 'inner_widget/inner_widget/drop_down.dart';
 
 class AddAlertDialogBody extends StatelessWidget {
   const AddAlertDialogBody({

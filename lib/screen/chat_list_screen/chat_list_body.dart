@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
-import 'package:flutter_chat_test_app/screen/alert_dialog/app_dialog.dart';
-import 'package:flutter_chat_test_app/screen/alert_dialog/inner_widget/drop_down.dart';
+import 'package:flutter_chat_test_app/screen/alert_dialog/inner_widget/app_dialog.dart';
 import '../alert_dialog/data_model/drop_down_data.dart';
 import '../alert_dialog/dialog_body.dart';
 import 'controller/list_screen_cubit.dart';
