@@ -36,7 +36,7 @@ class ChatListScreen extends StatelessWidget {
                 final curItem = newGeneratedListWithKey[index];
                 return ChatListItem(
                   onPressed: (){
-                    print('clicked');
+                    Navigator.of(context).pushNamed(kChatDetailsScreen);
                   },
                   imageUrl: kAvatarDefaultPhotoUrl,
                   name: curItem.name,

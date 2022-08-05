@@ -22,6 +22,7 @@ class ChatDetailsScreenBody extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //toolbarHeight: 60,
+        titleSpacing: 0,
         title: Row(
           children: [
             CachedNetworkImage(

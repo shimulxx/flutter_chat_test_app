@@ -26,7 +26,32 @@ class ChatListBody extends StatelessWidget {
     // print(items[1].hashCode);
     // print(items[0] == items[0]);
     return Scaffold(
-      appBar: AppBar(title: const Text('Chat List Screen')),
+      appBar: AppBar(
+        title: const Text('Chat List Screen'),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).pushNamed(kProfileScreen);
+            },
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            icon: const Icon(Icons.account_circle, size: 25),
+          ),
+          GestureDetector(
+            onTap: (){
+              Navigator.of(context).pushNamed(kProfileScreen);
+            },
+            child: AbsorbPointer(
+              child: Row(
+                children: const[
+                  Center(child: Text('Profile', textAlign: TextAlign.center,)),
+                  SizedBox(width: 15,)
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         elevation: 5,
         splashColor: Theme.of(context).splashColor,
