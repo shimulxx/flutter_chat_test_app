@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import '../../../app_variable/sign_in_condition.dart';
 
 abstract class LoginRepository{
   Future<GoogleSignInAccount?> getUser();
@@ -15,9 +16,13 @@ class LoginRepositoryImp implements LoginRepository{
   @override
   Future<GoogleSignInAccount?> getUser() async{
     try{
+      print(isSignedIn);
       googleUser = googleSignIn.currentUser;
       googleUser = googleUser ?? await googleSignIn.signIn();
-      if(googleUser == null) { return null; }
+      if(googleUser == null) {
+        isSignedIn = false;
+        return null;
+      }
       else{
         final googleAuth = await googleUser?.authentication;
         final credential = GoogleAuthProvider.credential(
@@ -25,6 +30,7 @@ class LoginRepositoryImp implements LoginRepository{
           idToken: googleAuth?.idToken,
         );
         await FirebaseAuth.instance.signInWithCredential(credential);
+        isSignedIn = true;
         return googleUser;
       }
     }
@@ -35,7 +41,7 @@ class LoginRepositoryImp implements LoginRepository{
   Future<void> logout() async{
     //await googleSignIn.signOut();
     await googleSignIn.signOut();
-
+    isSignedIn = false;
   }
 
 }

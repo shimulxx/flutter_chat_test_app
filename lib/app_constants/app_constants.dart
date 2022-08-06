@@ -6,3 +6,5 @@ const kDefaultLocalAvatarPhoto = 'assets/images/pngs/avatar_default.png';
 //routes
 const kProfileScreen = 'profileScreen';
 const kChatDetailsScreen = 'chatDetailsScreen';
+const kChatListScreen = 'chatListScreen';
+const kDefaultRoute = '/';

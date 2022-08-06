@@ -28,8 +28,4 @@ class GoogleLogoutUseCaseImp implements GoogleLogoutUseCase{
   Future<void> logout() {
     return loginRepository.logout();
   }
-
-
-
-
 }

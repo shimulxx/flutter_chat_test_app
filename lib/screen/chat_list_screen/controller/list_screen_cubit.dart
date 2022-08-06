@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../api/login/use_cases/cases.dart';
 import '../../../app_constants/app_constants.dart';
 import '../data_model/chat_item_data.dart';
 import 'list_screen_state.dart';
 
 class ChatListScreenCubit extends Cubit<ChatListScreenState>{
-  ChatListScreenCubit() : super(const ChatListScreenState());
+  final GoogleLogoutUseCase googleLogoutUseCase;
+  ChatListScreenCubit({required this.googleLogoutUseCase}) : super(const ChatListScreenState());
 
   void onChangeSearchKey(String searchKey) => emit(state.copyWith(searchKey: searchKey));
 
@@ -20,6 +22,10 @@ class ChatListScreenCubit extends Cubit<ChatListScreenState>{
       ));
     }
     emit(state.copyWith(list: list));
+  }
+
+  Future<void> logout() async{
+   await googleLogoutUseCase.logout();
   }
 
 }
