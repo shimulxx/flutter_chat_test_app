@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_chat_test_app/screen/chat_list_screen/controller/list_sc
 import 'package:flutter_chat_test_app/screen/chat_list_screen/data_model/chat_item_data.dart';
 import 'app_router.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   registerAllDependency();
   runApp(const MyApp());
 }
