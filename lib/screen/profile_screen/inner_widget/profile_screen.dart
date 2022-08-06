@@ -9,9 +9,10 @@ class ProfileScreen extends StatelessWidget {
     required this.email,
     required this.name,
     required this.id,
+    required this.imageUrl,
   }) : super(key: key);
 
-  final String name, email, id;
+  final String name, email, id, imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,15 @@ class ProfileScreen extends StatelessWidget {
             top: 210,
             child: Column(
               children: [
-                CachedNetworkImage(
-                  imageUrl: kAvatarDefaultPhotoUrl,
-                  height: 110,
-                  width: 110,
-                  errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 110, width: 110,),
-                  placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.cover,
+                    errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 110, width: 110,),
+                    placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
+                  ),
                 ),
                 const SizedBox(height: 10,),
                 Text(name, style: const TextStyle(fontSize: 30),),

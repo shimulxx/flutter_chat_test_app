@@ -31,9 +31,8 @@ class ChatListBody extends StatelessWidget {
         actions: [
           ChatListThreeDotIcon(
             onChangeValue: (value) async{
-              if(value == 1){
-
-              }else{
+              if(value == 1){ Navigator.of(context).pushNamed(kProfileScreen); }
+              else{
                 await bloc.logout();
                 Navigator.of(context).pushNamed(kDefaultRoute);
               }

@@ -7,6 +7,7 @@ import 'package:flutter_chat_test_app/screen/chat_list_screen/controller/list_sc
 import 'package:flutter_chat_test_app/screen/login_screen/controller/login_cubit.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/inner_widget/login_screen_body.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/login_screen.dart';
+import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/profile_screen_body.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'app_variable/sign_in_condition.dart';
@@ -16,7 +17,6 @@ class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     print(settings.name);
     switch (settings.name) {
-
       case kDefaultRoute:
       case kChatListScreen:
         if (isSignedIn) {
@@ -39,7 +39,10 @@ class AppRouter {
         }
       case kProfileScreen:
         return MaterialPageRoute(
-            builder: (context) => const ProfileScreenBody());
+            builder: (context) => BlocProvider(
+              create: (context) => di<ProfileScreenCubit>()..loadData(),
+              child: const ProfileScreenBody(),
+            ));
       case kChatDetailsScreen:
         return MaterialPageRoute(
             builder: (context) => const ChatDetailsScreenBody());

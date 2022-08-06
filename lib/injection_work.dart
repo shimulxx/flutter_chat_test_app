@@ -3,6 +3,7 @@ import 'package:flutter_chat_test_app/app_router.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/controller/alert_dialog_cubit.dart';
 import 'package:flutter_chat_test_app/screen/chat_list_screen/controller/list_screen_cubit.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/controller/login_cubit.dart';
+import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'api/login/use_cases/cases.dart';
@@ -14,6 +15,7 @@ void registerAllDependency() async{
   _registerAppRouter();
   _registerAlertDialog();
   _registerLogin();
+  _registerProfile();
   await di.allReady();
 }
 
@@ -35,4 +37,8 @@ void _registerLogin(){
   di.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCaseImp(loginRepository: di()));
   di.registerLazySingleton<GoogleLogoutUseCase>(() => GoogleLogoutUseCaseImp(loginRepository: di()));
   di.registerFactory<LoginCubit>(() => LoginCubit(googleLoginUseCase: di()));
+}
+
+void _registerProfile(){
+  di.registerFactory<ProfileScreenCubit>(() => ProfileScreenCubit(googleLoginUseCase: di()));
 }

@@ -16,22 +16,27 @@ class LoginRepositoryImp implements LoginRepository{
   @override
   Future<GoogleSignInAccount?> getUser() async{
     try{
-      print(isSignedIn);
       googleUser = googleSignIn.currentUser;
-      googleUser = googleUser ?? await googleSignIn.signIn();
-      if(googleUser == null) {
-        isSignedIn = false;
-        return null;
-      }
-      else{
-        final googleAuth = await googleUser?.authentication;
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth?.accessToken,
-          idToken: googleAuth?.idToken,
-        );
-        await FirebaseAuth.instance.signInWithCredential(credential);
+      if(googleUser != null){
         isSignedIn = true;
         return googleUser;
+      }
+      else{
+        googleUser = await googleSignIn.signIn();
+        if(googleUser == null) {
+          isSignedIn = false;
+          return null;
+        }
+        else{
+          final googleAuth = await googleUser?.authentication;
+          final credential = GoogleAuthProvider.credential(
+            accessToken: googleAuth?.accessToken,
+            idToken: googleAuth?.idToken,
+          );
+          await FirebaseAuth.instance.signInWithCredential(credential);
+          isSignedIn = true;
+          return googleUser;
+        }
       }
     }
     catch(e){ return Future.error(e.toString()); }
