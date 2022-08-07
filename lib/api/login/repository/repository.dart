@@ -18,10 +18,8 @@ class LoginRepositoryImp implements LoginRepository{
   Future<User?> getUser() async{
     try{
       user = FirebaseAuth.instance.currentUser;
-      await _createFirebaseUser(user!);
       if(user != null){
         isSignedIn = true;
-        //await _createFirebaseUser(user!);
         return user;
       }
       else{
@@ -49,9 +47,9 @@ class LoginRepositoryImp implements LoginRepository{
   
   Future<void> _createFirebaseUser(User user) async{
     try{
-      final appCollection = FirebaseFirestore.instance.collection('app');
-      final users = appCollection.doc('users');
-      final curUser = (await users.collection(user.uid).doc('value').get()).data();
+      final appCollection = FirebaseFirestore.instance.collection('users');
+      final users = appCollection.doc(user.uid);
+      final curUser = (await users.get()).data();
       print('testwork: $curUser');
       if(curUser == null){
         final newData = {
@@ -60,7 +58,7 @@ class LoginRepositoryImp implements LoginRepository{
           'email': user.email,
           'chatList': []
         };
-        await users.collection(user.uid).doc('value').set(newData);
+        await users.set(newData);
       }
     }catch(e){
       print(e.toString());
