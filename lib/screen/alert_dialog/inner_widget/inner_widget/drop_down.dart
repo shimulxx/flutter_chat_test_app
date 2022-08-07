@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../data_model/drop_down_data.dart';
 
 
-class AppDialogDropDown extends StatefulWidget {
-  const AppDialogDropDown({
+class AppDropDownMenu extends StatefulWidget {
+  const AppDropDownMenu({
     Key? key,
     required this.items,
     required this.onChangeValue,
@@ -14,10 +14,10 @@ class AppDialogDropDown extends StatefulWidget {
   final Function(String) onChangeValue;
 
   @override
-  State<AppDialogDropDown> createState() => _AppDialogDropDownState();
+  State<AppDropDownMenu> createState() => _AppDropDownMenuState();
 }
 
-class _AppDialogDropDownState extends State<AppDialogDropDown> {
+class _AppDropDownMenuState extends State<AppDropDownMenu> {
   late var selectedValue = widget.items.isEmpty ? AlertDialogDropDownData.empty() : widget.items[0];
   //var selectedValue = 'One';
 

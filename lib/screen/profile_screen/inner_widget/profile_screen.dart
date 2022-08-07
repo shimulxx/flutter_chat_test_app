@@ -16,43 +16,41 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        alignment: Alignment.center,
-        clipBehavior: Clip.none,
-        children: [
-          ClipPath(
-            clipper: ProfileClipper(),
-            child: Container(
-              height: 300,
-              color: const Color(0xff141414),
-            ),
+    return Stack(
+      alignment: Alignment.center,
+      clipBehavior: Clip.none,
+      children: [
+        ClipPath(
+          clipper: ProfileClipper(),
+          child: Container(
+            height: 300,
+            color: const Color(0xff141414),
           ),
-          Positioned(
-            top: 210,
-            child: Column(
-              children: [
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    height: 110,
-                    width: 110,
-                    fit: BoxFit.cover,
-                    errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 110, width: 110,),
-                    placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
-                  ),
+        ),
+        Positioned(
+          top: 210,
+          child: Column(
+            children: [
+              ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
+                  height: 110,
+                  width: 110,
+                  fit: BoxFit.cover,
+                  errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 110, width: 110,),
+                  placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
                 ),
-                const SizedBox(height: 10,),
-                Text(name, style: const TextStyle(fontSize: 30),),
-                const SizedBox(height: 10,),
-                Text('ID: $id', style: const TextStyle(fontSize: 20),),
-                const SizedBox(height: 10,),
-                Text('Email: $email', style: const TextStyle(fontSize: 20),),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              const SizedBox(height: 10,),
+              Text(name, style: const TextStyle(fontSize: 30),),
+              const SizedBox(height: 10,),
+              Text('ID: $id', style: const TextStyle(fontSize: 20),),
+              const SizedBox(height: 10,),
+              Text('Email: $email', style: const TextStyle(fontSize: 20),),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import '../data_model/chat_detail_item_data.dart';
 import 'inner_widget/chat_details_list_item.dart';
 
 class ChatDetailsScreenListBody extends StatefulWidget {
   const ChatDetailsScreenListBody({
     Key? key,
     required this.list,
+    required this.curUserId,
   }) : super(key: key);
 
-  final List<ChatDetailsListItem> list;
+  final List<ChatDetailItemData> list;
+  final String curUserId;
 
   @override
   State<ChatDetailsScreenListBody> createState() => _ChatDetailsScreenListBodyState();
@@ -15,21 +18,28 @@ class ChatDetailsScreenListBody extends StatefulWidget {
 
 class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
   final _controller = ScrollController();
-  late List<ChatDetailsListItem> _innerList = widget.list;
+  late List<ChatDetailItemData> _innerList = widget.list;
+  late var _innerUserId = widget.curUserId;
 
-  void _scrollDown() {
+  void _scrollDownWork() {
     _controller.jumpTo(_controller.position.maxScrollExtent);
+  }
+
+  void _scrollDown(){
+    WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollDownWork());
   }
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollDown());
+    _scrollDown();
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant ChatDetailsScreenListBody oldWidget) {
     _innerList = widget.list;
+    _innerUserId = widget.curUserId;
+   _scrollDown();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -53,7 +63,7 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
             chatText: curItem.chatText,
             isDelivered: curItem.isDelivered,
             sendTime: curItem.sendTime,
-            self: curItem.self,
+            self: _innerUserId == curItem.userId,
           );
         },
       ),

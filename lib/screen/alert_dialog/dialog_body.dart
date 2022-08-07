@@ -19,7 +19,7 @@ class AddAlertDialogBody extends StatelessWidget {
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              AppDialogDropDown(
+              AppDropDownMenu(
                 items: state.dropDownDataList,
                 onChangeValue: bloc.onValueChanged,
               ),

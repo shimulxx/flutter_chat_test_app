@@ -9,21 +9,22 @@ class ProfileScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileScreenCubit, ProfileScreenState>(
-      builder: (context, state){
-        if(state.isLoading){
-          return const Center(child: CircularProgressIndicator(color: Colors.white));
-        }
-        else {
-          final user = state.user!;
-          return ProfileScreen(
-            imageUrl: user.photoUrl!,
-            name: user.displayName!,
-            email: user.email,
-            id: user.id,
-        );}
-      },
+    return Scaffold(
+      body: BlocBuilder<ProfileScreenCubit, ProfileScreenState>(
+        builder: (context, state){
+          if(state.isLoading){ return const Center(child: CircularProgressIndicator(color: Colors.white)); }
+          else {
+            final user = state.user!;
+            print(user);
+            return ProfileScreen(
+              imageUrl: user.photoURL!,
+              name: user.displayName!,
+              email: user.email!,
+              id: user.providerData[0].uid!,
+            );}
+        },
 
+      ),
     );
   }
 }

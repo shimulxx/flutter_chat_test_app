@@ -21,7 +21,7 @@ class LoginScreenBody extends StatelessWidget {
             print(state.errorMessage);
           }
           else if(state.isLoggedIn){
-            Navigator.of(context).pushNamed(kChatListScreen);
+            Navigator.of(context).pushReplacementNamed(kChatListScreen);
           }
         },
         child: LoginButton(

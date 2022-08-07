@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileScreenState extends Equatable{
   final bool isLoading;
-  final GoogleSignInAccount? user;
+  final User? user;
 
   const ProfileScreenState({ required this.isLoading, this.user });
 
-  ProfileScreenState copyWith({bool? isLoading, GoogleSignInAccount? user}){
+  ProfileScreenState copyWith({bool? isLoading, User? user}){
     return ProfileScreenState(
       isLoading: isLoading ?? this.isLoading,
       user: user ?? this.user,

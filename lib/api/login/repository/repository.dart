@@ -1,51 +1,78 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../app_variable/sign_in_condition.dart';
 
 abstract class LoginRepository{
-  Future<GoogleSignInAccount?> getUser();
+  Future<User?> getUser();
   Future<void> logout();
 }
 
 class LoginRepositoryImp implements LoginRepository{
   final GoogleSignIn googleSignIn;
-  GoogleSignInAccount? googleUser;
+  User? user;
 
   LoginRepositoryImp({required this.googleSignIn});
 
   @override
-  Future<GoogleSignInAccount?> getUser() async{
+  Future<User?> getUser() async{
     try{
-      googleUser = googleSignIn.currentUser;
-      if(googleUser != null){
+      user = FirebaseAuth.instance.currentUser;
+      await _createFirebaseUser(user!);
+      if(user != null){
         isSignedIn = true;
-        return googleUser;
+        //await _createFirebaseUser(user!);
+        return user;
       }
       else{
-        googleUser = await googleSignIn.signIn();
+        final googleUser = await googleSignIn.signIn();
         if(googleUser == null) {
           isSignedIn = false;
           return null;
         }
         else{
-          final googleAuth = await googleUser?.authentication;
+          final googleAuth = await googleUser.authentication;
           final credential = GoogleAuthProvider.credential(
-            accessToken: googleAuth?.accessToken,
-            idToken: googleAuth?.idToken,
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
           );
           await FirebaseAuth.instance.signInWithCredential(credential);
+          user = FirebaseAuth.instance.currentUser;
           isSignedIn = true;
-          return googleUser;
+          await _createFirebaseUser(user!);
+          return user;
         }
       }
     }
     catch(e){ return Future.error(e.toString()); }
+  }
+  
+  Future<void> _createFirebaseUser(User user) async{
+    try{
+      final appCollection = FirebaseFirestore.instance.collection('app');
+      final users = appCollection.doc('users');
+      final curUser = (await users.collection(user.uid).doc('value').get()).data();
+      print('testwork: $curUser');
+      if(curUser == null){
+        final newData = {
+          'name': user.displayName,
+          'imageUrl': user.photoURL,
+          'email': user.email,
+          'chatList': []
+        };
+        await users.collection(user.uid).doc('value').set(newData);
+      }
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   @override
   Future<void> logout() async{
     //await googleSignIn.signOut();
     await googleSignIn.signOut();
+    await FirebaseAuth.instance.signOut();
+    //await googleSignIn.disconnect();
     isSignedIn = false;
   }
 

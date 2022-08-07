@@ -1,9 +1,9 @@
 class ChatDetailItemData{
-  final String chatText, sendTime;
-  final bool self, isDelivered;
+  final String chatText, sendTime, userId;
+  final bool isDelivered;
 
   const ChatDetailItemData({
-    required this.self,
+    required this.userId,
     required this.sendTime,
     required this.chatText,
     required this.isDelivered,

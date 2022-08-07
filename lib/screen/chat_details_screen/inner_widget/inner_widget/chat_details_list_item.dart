@@ -14,7 +14,7 @@ class ChatDetailsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width / 2;
+    final width = MediaQuery.of(context).size.width / 5;
     return Material(
       elevation: 5,
       child: Container(

@@ -1,8 +1,8 @@
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../repository/repository.dart';
 
 abstract class GoogleLoginUseCase{
-  Future<GoogleSignInAccount?> getUser();
+  Future<User?> getUser();
 }
 
 class GoogleLoginUseCaseImp implements GoogleLoginUseCase{
@@ -10,7 +10,7 @@ class GoogleLoginUseCaseImp implements GoogleLoginUseCase{
   const GoogleLoginUseCaseImp({required this.loginRepository});
 
   @override
-  Future<GoogleSignInAccount?> getUser() {
+  Future<User?> getUser() {
     return loginRepository.getUser();
   }
 }
