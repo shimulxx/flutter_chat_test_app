@@ -18,12 +18,12 @@ class ChatDetailsListItem extends StatelessWidget {
     return Material(
       elevation: 5,
       child: Container(
-        margin: self
+        margin: !self
             ? EdgeInsets.only(left: 10, right: width, top: 8)
             : EdgeInsets.only(left: width, right: 10, top: 8),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: self ? Colors.black12 : Colors.red,
+          color: self ? Colors.red : Colors.black12,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -35,7 +35,7 @@ class ChatDetailsListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(sendTime),
-                if(!self) Row(
+                if(self) Row(
                   children: [
                     const SizedBox(width: 10),
                     for(var i = 1; i <= (isDelivered ? 2 : 1); ++i) Transform.scale(scale: 2, child: const Icon(Icons.check, size: 8)),

@@ -3,12 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../app_variable/sign_in_condition.dart';
 import '../../../screen/alert_dialog/data_model/drop_down_data.dart';
+import '../../screen/chat_details_screen/data_model/chat_detail_item_data.dart';
+import '../../screen/chat_list_screen/data_model/chat_item_data.dart';
 
 abstract class Repository{
   Future<User?> getUser();
   Future<List<AlertDialogDropDownData>> getUsrListForAlertDialog();
   Future<void> logout();
   Future<void> createChatRoomForCurrentUser(String targetUser);
+  Stream<List<ChatItemData>> getStreamChatItemData();
+  Stream<List<ChatDetailItemData>> getStreamChatDetailsItemData({required String chatRoomId});
+  String? getCurrentUserStr();
 }
 
 class RepositoryImp implements Repository{
@@ -65,7 +70,10 @@ class RepositoryImp implements Repository{
   User? get _firebaseUserLocal => firebaseInstance.currentUser;
   
   String? get _userIdLocalStr => _firebaseUserLocal?.uid;
-  
+
+  @override
+  String? getCurrentUserStr() => _userIdLocalStr;
+
   Future<void> _createFirebaseUser() async{
     try{
       // collection read only
@@ -125,7 +133,51 @@ class RepositoryImp implements Repository{
     await Future.wait([
        chatItemForCurrentUser.set({'roomLocation' : newChatRoomId}),
        chatItemForOtherUser.set({'roomLocation' : newChatRoomId}),
-       _chatRoomCollectionCloud.doc(newChatRoomId).set({}),
+       //_chatRoomCollectionCloud.doc(newChatRoomId).set({}),
      ]);
+  }
+
+  @override
+  Stream<List<ChatItemData>> getStreamChatItemData() {
+    return _userCollectionCloud.doc(_userIdLocalStr).collection('chatList')
+        .snapshots().asyncMap((snapShot) async{
+          print('grab');
+          final curData = snapShot.docs;
+          final curList = <ChatItemData>[];
+          for(var item in curData){
+            final curMap = item.data();
+            final chatRoomId = curMap['roomLocation'];
+            final curUserData = (await _userCollectionCloud.doc(item.id).get()).data()!;
+            curList.add(ChatItemData(
+              lastChat: 'not set',
+              imageUrl: curUserData['imageUrl'],
+              name: curUserData['name'],
+              lastTime: '10:11 pm',
+              isDelivered: true,
+              chatRoomId: chatRoomId
+            ));
+          }
+          return curList;
+    });
+  }
+
+  @override
+  Stream<List<ChatDetailItemData>> getStreamChatDetailsItemData({required String chatRoomId}){
+    return _chatRoomCollectionCloud.doc(chatRoomId).collection('chats')
+        .snapshots().asyncMap((snapShot) {
+          final curData = snapShot.docs;
+          final curList = <ChatDetailItemData>[];
+          for(var item in curData){
+            final curMap = item.data();
+            curList.add(ChatDetailItemData(
+              userId: _userIdLocalStr!,
+              sendTime: item.id,
+              chatText: curMap['text'],
+              isDelivered: curMap['isDelivered'],
+            ));
+          }
+          return curList;
+        }
+    );
   }
 }

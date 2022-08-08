@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_test_app/api/repository/repository.dart';
 import 'package:flutter_chat_test_app/app_router.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/controller/alert_dialog_cubit.dart';
+import 'package:flutter_chat_test_app/screen/chat_details_screen/controller/chat_room_details_cubit.dart';
 import 'package:flutter_chat_test_app/screen/chat_list_screen/controller/list_screen_cubit.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/controller/login_cubit.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
@@ -18,11 +19,22 @@ void registerAllDependency() async{
   _registerAlertDialog();
   _registerRepo();
   _registerProfile();
+  _registerChatDetails();
+  _registerLogin();
   await di.allReady();
 }
 
 void _registerChatList(){
-  di.registerFactory<ChatListScreenCubit>(() => ChatListScreenCubit(googleLogoutUseCase: di()));
+  di.registerFactory<ChatListScreenCubit>(() => ChatListScreenCubit(
+    googleLogoutUseCase: di(),
+    getUserChatListStreamUseCase: di(),
+  ));
+}
+
+void _registerChatDetails(){
+  di.registerLazySingleton<GetUserChatDetailsStreamUseCase>(() => GetUserChatDetailsStreamUseCaseImp(repository: di()));
+  di.registerFactory<ChatRoomDetailsCubit>(() => ChatRoomDetailsCubit(getUserChatDetailsStreamUseCase: di()));
+  di.registerLazySingleton<GetUserStrUseCase>(() => GetUserStrUseCaseImp(repository: di()));
 }
 
 void _registerAppRouter(){
@@ -37,6 +49,12 @@ void _registerAlertDialog(){
   di.registerLazySingleton<AlertDialogUserListUseCase>(() => AlertDialogUserListUseCaseImp(repository: di()));
 }
 
+void _registerLogin(){
+  di.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCaseImp(repository: di()));
+  di.registerLazySingleton<GoogleLogoutUseCase>(() => GoogleLogoutUseCaseImp(repository: di()));
+  di.registerFactory<LoginCubit>(() => LoginCubit(googleLoginUseCase: di()));
+}
+
 void _registerRepo(){
   di.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn());
   di.registerLazySingleton<Repository>(() => RepositoryImp(
@@ -44,12 +62,10 @@ void _registerRepo(){
     firebaseInstance: di(),
     fireStoreInstance: di(),
   ));
-  di.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCaseImp(repository: di()));
-  di.registerLazySingleton<GoogleLogoutUseCase>(() => GoogleLogoutUseCaseImp(repository: di()));
-  di.registerFactory<LoginCubit>(() => LoginCubit(googleLoginUseCase: di()));
   di.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
   di.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
   di.registerLazySingleton<ChatRoomCreateUseCase>(() => ChatRoomCreateUseCaseImp(repository: di()));
+  di.registerLazySingleton<GetUserChatListStreamUseCase>(() => GetUserChatListStreamUseCaseImp(repository: di()));
 }
 
 void _registerProfile(){

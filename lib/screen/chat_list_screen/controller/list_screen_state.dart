@@ -4,24 +4,24 @@ import '../data_model/chat_item_data.dart';
 
 class ChatListScreenState extends Equatable{
   final String searchKey;
-  final List<ChatItemData> list;
+  final Stream<List<ChatItemData>?>? streamList;
   const ChatListScreenState({
     this.searchKey = '',
-    this.list = const [],
+    this.streamList,
   });
 
   ChatListScreenState copyWith({
     String? searchKey,
-    List<ChatItemData>? list
+    Stream<List<ChatItemData>?>? streamList,
   }){
     return ChatListScreenState(
       searchKey: searchKey ?? this.searchKey,
-      list: list ?? this.list,
+      streamList: streamList ?? this.streamList,
     );
   }
 
   @override
-  List<Object?> get props => [searchKey, list];
+  List<Object?> get props => [searchKey, streamList];
 
 
 }

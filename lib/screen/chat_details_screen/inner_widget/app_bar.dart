@@ -17,11 +17,13 @@ class AppBarChatDetailsScreen extends StatelessWidget with PreferredSizeWidget {
       titleSpacing: 0,
       title: Row(
         children: [
-          CachedNetworkImage(
-            height: 40,
-            width: 40,
-            imageUrl: imageUrl,
-            placeholder: (c, s) => const Padding(padding: EdgeInsets.all(8.0), child: CircularProgressIndicator()),
+          ClipOval(
+            child: CachedNetworkImage(
+              height: 40,
+              width: 40,
+              imageUrl: imageUrl,
+              placeholder: (c, s) => const Padding(padding: EdgeInsets.all(8.0), child: CircularProgressIndicator()),
+            ),
           ),
           const SizedBox(width: 10),
           Text(name),

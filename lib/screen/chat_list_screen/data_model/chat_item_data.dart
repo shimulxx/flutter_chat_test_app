@@ -1,5 +1,5 @@
 class ChatItemData{
-  final String imageUrl, name, lastChat, lastTime;
+  final String imageUrl, name, lastChat, lastTime, chatRoomId;
   final bool isDelivered;
 
   const ChatItemData({
@@ -8,5 +8,6 @@ class ChatItemData{
     required this.lastTime,
     required this.isDelivered,
     required this.name,
+    required this.chatRoomId,
   });
 }

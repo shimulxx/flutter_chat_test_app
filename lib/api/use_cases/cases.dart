@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../screen/alert_dialog/data_model/drop_down_data.dart';
+import '../../screen/chat_details_screen/data_model/chat_detail_item_data.dart';
+import '../../screen/chat_list_screen/data_model/chat_item_data.dart';
 import '../repository/repository.dart';
 
 abstract class GoogleLoginUseCase{
@@ -59,3 +61,50 @@ class ChatRoomCreateUseCaseImp implements ChatRoomCreateUseCase{
     return repository.createChatRoomForCurrentUser(targetUser);
   }
 }
+
+abstract class GetUserChatListStreamUseCase{
+  Stream<List<ChatItemData>?> getStreamChatItemData();
+}
+
+class GetUserChatListStreamUseCaseImp implements GetUserChatListStreamUseCase{
+  final Repository repository;
+
+  GetUserChatListStreamUseCaseImp({required this.repository});
+
+  @override
+  Stream<List<ChatItemData>?> getStreamChatItemData() {
+    return repository.getStreamChatItemData();
+  }
+}
+
+abstract class GetUserChatDetailsStreamUseCase{
+  Stream<List<ChatDetailItemData>> getStreamChatDetailsItemData({required String chatRoomId});
+}
+
+class GetUserChatDetailsStreamUseCaseImp implements GetUserChatDetailsStreamUseCase{
+  final Repository repository;
+
+  GetUserChatDetailsStreamUseCaseImp({required this.repository});
+
+  @override
+  Stream<List<ChatDetailItemData>> getStreamChatDetailsItemData({required String chatRoomId}) {
+    return repository.getStreamChatDetailsItemData(chatRoomId: chatRoomId);
+  }
+}
+
+abstract class GetUserStrUseCase{
+  String? get userString;
+}
+
+class GetUserStrUseCaseImp implements GetUserStrUseCase{
+  final Repository repository;
+
+  GetUserStrUseCaseImp({required this.repository});
+
+  @override
+  String? get userString {
+    return repository.getCurrentUserStr();
+  }
+
+}
+

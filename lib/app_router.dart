@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/core/constants.dart';
+import 'package:flutter_chat_test_app/screen/chat_details_screen/controller/chat_room_details_cubit.dart';
 import 'package:flutter_chat_test_app/screen/chat_details_screen/details_screen.dart';
 import 'package:flutter_chat_test_app/screen/chat_list_screen/chat_list_body.dart';
 import 'package:flutter_chat_test_app/screen/chat_list_screen/controller/list_screen_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_chat_test_app/screen/login_screen/login_screen.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/profile_screen_body.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'api/use_cases/cases.dart';
 import 'app_variable/sign_in_condition.dart';
 import 'injection_work.dart';
 
@@ -44,8 +46,16 @@ class AppRouter {
               child: const ProfileScreenBody(),
             ));
       case kChatDetailsScreen:
+        final list = settings.arguments as List<dynamic>;
+        final String chatRoomId = list[0];
+        final String name = list[1];
+        final String imageUrl = list[2];
+        final String? curUserId = di<GetUserStrUseCase>().userString;
         return MaterialPageRoute(
-            builder: (context) => const ChatDetailsScreenBody());
+            builder: (context) => BlocProvider(
+              create: (context) => di<ChatRoomDetailsCubit>()..loadData(roomId: chatRoomId),
+              child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl, curUserId: curUserId!,),
+            ));
       default:
         return null;
     }

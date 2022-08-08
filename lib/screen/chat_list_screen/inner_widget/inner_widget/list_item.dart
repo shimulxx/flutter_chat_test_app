@@ -31,12 +31,14 @@ class ChatListItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: kAvatarDefaultPhotoUrl,
-                  height: 50,
-                  width: 50,
-                  errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 50, width: 50,),
-                  placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    height: 50,
+                    width: 50,
+                    errorWidget: (c, u, e) => Image.asset(kDefaultLocalAvatarPhoto, height: 50, width: 50,),
+                    placeholder: (c, s) => const Padding(padding: EdgeInsets.all(10), child: CircularProgressIndicator()),
+                  ),
                 ),
                 const SizedBox(width: 10,),
                 Column(
