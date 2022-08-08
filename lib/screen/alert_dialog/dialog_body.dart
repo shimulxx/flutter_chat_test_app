@@ -15,6 +15,7 @@ class AddAlertDialogBody extends StatelessWidget {
     return BlocBuilder<AlertDialogCubit, AlertDialogState>(
       builder: (context, state) {
         if (state.isLoading) { return const Center(child: CircularProgressIndicator()); }
+        else if(state.hasError) { return Center(child: Text(state.errorMessage)); }
         else {
           return Row(
             mainAxisSize: MainAxisSize.min,
@@ -23,13 +24,15 @@ class AddAlertDialogBody extends StatelessWidget {
                 items: state.dropDownDataList,
                 onChangeValue: bloc.onValueChanged,
               ),
-              IconButton(
-                onPressed: () async{
-                  await bloc.onPressAdd(state.selectedId);
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.add),
-              )
+              Expanded(
+                child: IconButton(
+                  onPressed: () async{
+                    await bloc.onPressAdd(state.selectedId);
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ),
             ],
           );
         }

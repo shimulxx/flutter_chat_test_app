@@ -1,17 +1,23 @@
 import 'package:equatable/equatable.dart';
 
 class AlertDialogDropDownData extends Equatable{
-  final String name, id, imageUrl;
-  const AlertDialogDropDownData({required this.id, required this.name, required this.imageUrl});
+  final String name, id, imageUrl, email;
+  const AlertDialogDropDownData({
+    required this.id,
+    required this.name,
+    required this.imageUrl,
+    required this.email,
+  });
   factory AlertDialogDropDownData.empty(){
-    return const AlertDialogDropDownData(id: '', name: '', imageUrl: '');
+    return const AlertDialogDropDownData(id: '', name: '', imageUrl: '', email: '');
   }
+
 
   @override
   String toString() {
-    return 'DropDownData{name: $name, id: $id, imageUrl: $imageUrl}';
+    return 'AlertDialogDropDownData{name: $name, id: $id, imageUrl: $imageUrl, email: $email}';
   }
 
   @override
-  List<Object?> get props => [name, id, imageUrl];
+  List<Object?> get props => [name, id, imageUrl, email];
 }

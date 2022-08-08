@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../app_constants/app_constants.dart';
+import '../../../core/constants.dart';
 import 'clipper/profile_clipper.dart';
 
 class ProfileScreen extends StatelessWidget {

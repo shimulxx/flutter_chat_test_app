@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
+import 'package:flutter_chat_test_app/core/constants.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/inner_widget/app_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../app_variable/sign_in_condition.dart';
@@ -20,11 +20,6 @@ class ChatListBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ChatListScreenCubit>();
-    print('list generated');
-    final items = <AlertDialogDropDownData>[];
-    for(var i = 1; i <= 5; ++i) {
-      items.add(AlertDialogDropDownData(id: i.toString(), name: 'Shimul$i', imageUrl: kAvatarDefaultPhotoUrl));
-    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat List Screen'),

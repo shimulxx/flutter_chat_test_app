@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:substring_highlight/substring_highlight.dart';
-import '../../../../app_constants/app_constants.dart';
+import '../../../../core/constants.dart';
 
 class ChatListItem extends StatelessWidget {
   const ChatListItem({

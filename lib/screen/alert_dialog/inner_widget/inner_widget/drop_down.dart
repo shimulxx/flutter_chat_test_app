@@ -24,19 +24,30 @@ class _AppDropDownMenuState extends State<AppDropDownMenu> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<AlertDialogDropDownData>(
+      underline: const SizedBox(),
       value: selectedValue,
         items: widget.items.map<DropdownMenuItem<AlertDialogDropDownData>>((e) {
           return DropdownMenuItem(
             value: e,
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: e.imageUrl,
-                  height: 30,
-                  width: 30,
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: e.imageUrl,
+                    height: 35,
+                    width: 35,
+                  ),
                 ),
                 const SizedBox(width: 10),
-                Text(e.name)
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(e.name, style: const TextStyle(fontSize: 18),),
+                    const SizedBox(height: 2,),
+                    Text(e.email, style: const TextStyle(fontSize: 13),)
+                  ],
+                )
               ],
             ),
           );

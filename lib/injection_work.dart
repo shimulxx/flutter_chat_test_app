@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_test_app/api/login/repository/repository.dart';
 import 'package:flutter_chat_test_app/app_router.dart';
 import 'package:flutter_chat_test_app/screen/alert_dialog/controller/alert_dialog_cubit.dart';
@@ -28,15 +30,22 @@ void _registerAppRouter(){
 }
 
 void _registerAlertDialog(){
-  di.registerFactory<AlertDialogCubit>(() => AlertDialogCubit());
+  di.registerFactory<AlertDialogCubit>(() => AlertDialogCubit(useCase: di()));
+  di.registerLazySingleton<AlertDialogUserListUseCase>(() => AlertDialogUserListUseCaseImp(loginRepository: di()));
 }
 
 void _registerLogin(){
   di.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn());
-  di.registerLazySingleton<LoginRepository>(() => LoginRepositoryImp(googleSignIn: di()));
+  di.registerLazySingleton<LoginRepository>(() => LoginRepositoryImp(
+    googleSignIn: di(),
+    firebaseInstance: di(),
+    fireStoreInstance: di(),
+  ));
   di.registerLazySingleton<GoogleLoginUseCase>(() => GoogleLoginUseCaseImp(loginRepository: di()));
   di.registerLazySingleton<GoogleLogoutUseCase>(() => GoogleLogoutUseCaseImp(loginRepository: di()));
   di.registerFactory<LoginCubit>(() => LoginCubit(googleLoginUseCase: di()));
+  di.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  di.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
 }
 
 void _registerProfile(){

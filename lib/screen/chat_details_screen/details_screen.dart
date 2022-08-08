@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
+import 'package:flutter_chat_test_app/core/constants.dart';
 import 'chat_text_field.dart';
 import 'data_model/chat_detail_item_data.dart';
 import 'inner_widget/app_bar.dart';

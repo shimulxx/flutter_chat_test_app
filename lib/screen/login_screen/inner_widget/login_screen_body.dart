@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat_test_app/app_constants/app_constants.dart';
+import 'package:flutter_chat_test_app/core/constants.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/controller/login_cubit.dart';
 import '../controller/login_state.dart';
 import 'inner_widget/login_button.dart';

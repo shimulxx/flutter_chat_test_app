@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_test_app/screen/chat_list_screen/data_model/chat_item_data.dart';
-import '../../../app_constants/app_constants.dart';
+import '../../../core/constants.dart';
 import 'inner_widget/list_item.dart';
 import 'inner_widget/search_text_field.dart';
 
