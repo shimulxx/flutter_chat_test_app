@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../api/login/use_cases/cases.dart';
+import '../../../api/use_cases/cases.dart';
 import '../../../core/constants.dart';
 import '../data_model/chat_item_data.dart';
 import 'list_screen_state.dart';

@@ -16,6 +16,7 @@ class AddAlertDialogBody extends StatelessWidget {
       builder: (context, state) {
         if (state.isLoading) { return const Center(child: CircularProgressIndicator()); }
         else if(state.hasError) { return Center(child: Text(state.errorMessage)); }
+        else if(state.dropDownDataList.isEmpty) { return const Center(child: Text('Empty!')); }
         else {
           return Row(
             mainAxisSize: MainAxisSize.min,

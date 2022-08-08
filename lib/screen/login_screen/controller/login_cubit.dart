@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_chat_test_app/api/login/use_cases/cases.dart';
+import 'package:flutter_chat_test_app/api/use_cases/cases.dart';
 import 'package:flutter_chat_test_app/screen/login_screen/controller/login_state.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../app_variable/sign_in_condition.dart';

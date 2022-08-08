@@ -15,7 +15,6 @@ class ProfileScreenBody extends StatelessWidget {
           if(state.isLoading){ return const Center(child: CircularProgressIndicator(color: Colors.white)); }
           else {
             final user = state.user!;
-            print(user);
             return ProfileScreen(
               imageUrl: user.photoURL!,
               name: user.displayName!,
@@ -23,7 +22,6 @@ class ProfileScreenBody extends StatelessWidget {
               id: user.providerData[0].uid!,
             );}
         },
-
       ),
     );
   }

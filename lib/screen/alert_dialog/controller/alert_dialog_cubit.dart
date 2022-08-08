@@ -1,17 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/core/constants.dart';
-import '../../../api/login/use_cases/cases.dart';
+import '../../../api/use_cases/cases.dart';
 import '../data_model/drop_down_data.dart';
 import 'alert_dialog_state.dart';
 
 class AlertDialogCubit extends Cubit<AlertDialogState>{
-  final AlertDialogUserListUseCase useCase;
-  AlertDialogCubit({required this.useCase}) : super(const AlertDialogState(isLoading: true));
+  final AlertDialogUserListUseCase alertDialogUserListUseCase;
+  final ChatRoomCreateUseCase chatRoomCreateUseCase;
+  AlertDialogCubit({required this.alertDialogUserListUseCase, required this.chatRoomCreateUseCase}) : super(const AlertDialogState(isLoading: true));
 
   void loadData() async{
     emit(state.copyWith(isLoading: true));
     try{
-      final list = await useCase.getUsrListForAlertDialog(userId: '');
+      final list = await alertDialogUserListUseCase.getUsrListForAlertDialog();
       emit(state.copyWith(isLoading: false, dropDownDataList: list, selectedId: list.isEmpty ? '' : list[0].id));
     }
     catch(e){
@@ -20,8 +21,8 @@ class AlertDialogCubit extends Cubit<AlertDialogState>{
     }
   }
 
-  Future<void> onPressAdd(String value) async{
-      print(value);
+  Future<void> onPressAdd(String targetUser) async{
+      await chatRoomCreateUseCase.createChatRoomForCurrentUser(targetUser);
   }
   
   void onValueChanged(String value){
