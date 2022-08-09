@@ -23,5 +23,5 @@ Google sign in, chat list, chat details, profile, add user is used here.
 For state management I have used cubit (which is super class of bloc) here.
 
 ## Used Procedure
-First a user have to login then he/she can add user. Here chat room is one to one and user to user has
+First a user have to login then he/she can add user. If a user add any person then a chat room will create for both person, so it's not necessary to add on both side. Here chat room is for two person and user to user has
 one to many relationship. This is basically a test application. Thank you........
