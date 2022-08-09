@@ -62,7 +62,7 @@ class ChatListItem extends StatelessWidget {
                           builder: (context, snapshot){
                             if(snapshot.hasData){
                               final curData = snapshot.data!;
-                              if(curData.userId.isEmpty){ return const Text('No user id found!'); }
+                              if(curData.userId.isEmpty){ return const Text('No data found!'); }
                               else{
                                 return DeliveryWidget(
                                   isDelivered: curData.isDelivered,
@@ -85,7 +85,7 @@ class ChatListItem extends StatelessWidget {
                 builder: (context, snapshot){
                   if(snapshot.hasData){
                     final curData = snapshot.data!;
-                    if(curData.userId.isEmpty){ return const Text('No user id found!'); }
+                    if(curData.userId.isEmpty){ return const Text('No data found!'); }
                     else{ return Text(curData.sendTime); }
                   }
                   else{ return const Text('No data'); }
