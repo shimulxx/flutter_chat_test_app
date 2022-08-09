@@ -8,4 +8,13 @@ class ChatDetailItemData{
     required this.chatText,
     required this.isDelivered,
   });
+
+  factory ChatDetailItemData.empty(){
+    return const ChatDetailItemData(
+      userId: '',
+      sendTime: '',
+      chatText: '',
+      isDelivered: false,
+    );
+  }
 }

@@ -138,3 +138,19 @@ class UpdateDeliveryUseCaseImp implements UpdateDeliveryUseCase{
   }
 
 }
+
+abstract class SingleStreamUseCase{
+  Stream<ChatDetailItemData> getSingleStream({required String chatRoomId});
+}
+
+class SingleStreamUseCaseImp implements SingleStreamUseCase{
+  Repository repository;
+
+  SingleStreamUseCaseImp({required this.repository});
+
+  @override
+  Stream<ChatDetailItemData> getSingleStream({required String chatRoomId}) {
+    return repository.getSingleStream(chatRoomId: chatRoomId);
+  }
+
+}

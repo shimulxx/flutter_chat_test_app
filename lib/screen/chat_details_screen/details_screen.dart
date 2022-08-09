@@ -59,7 +59,7 @@ class ChatDetailsScreenBody extends StatelessWidget {
               final curData = ChatDetailItemData(
                 chatText: value,
                 isDelivered: false,
-                sendTime: DateTime.now().toString(),
+                sendTime: DateTime.now().toString().split('.')[0],
                 userId: bloc.curUserId,
               );
               bloc.onChangeText(data: curData);

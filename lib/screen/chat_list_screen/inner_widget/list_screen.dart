@@ -39,11 +39,9 @@ class ChatListScreen extends StatelessWidget {
                     Navigator.of(context).pushNamed(kChatDetailsScreen,
                         arguments: [curItem.chatRoomId, curItem.name, curItem.imageUrl]);
                   },
+                  chatRoomId: curItem.chatRoomId,
                   imageUrl: curItem.imageUrl,
                   name: curItem.name,
-                  lastChat: curItem.lastChat,
-                  lastTime: curItem.lastTime,
-                  isDelivered: curItem.isDelivered,
                   highLightKey: searchKey,
                 );
               },

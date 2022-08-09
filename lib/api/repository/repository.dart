@@ -16,6 +16,7 @@ abstract class Repository{
   String? getCurrentUserStr();
   Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId});
   Future<void> updateDelivery({required List<String> updateList, required String chatRoomId});
+  Stream<ChatDetailItemData> getSingleStream({required String chatRoomId});
 }
 
 class RepositoryImp implements Repository{
@@ -195,16 +196,33 @@ class RepositoryImp implements Repository{
 
   @override
   Future<void> updateDelivery({required List<String> updateList, required String chatRoomId}) async{
-    print(updateList);
     if(updateList.isNotEmpty){
       final curChats = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats');
       for(var i = 0; i < updateList.length; ++i){
-        final curItem = updateList[i];
-        final oldItem = curChats.doc(curItem);
+        final curListItem = updateList[i];
+        final oldItem = curChats.doc(curListItem);
         final mp = (await oldItem.get()).data()!;
         mp['isDelivered'] = true;
         oldItem.update(mp);
       }
     }
+  }
+
+  @override
+  Stream<ChatDetailItemData> getSingleStream({required String chatRoomId}) {
+    return  _chatRoomCollectionCloud.doc(chatRoomId).collection('chats')
+        .snapshots().asyncMap((snapShot){
+          final curList = snapShot.docs;
+          if(curList.isNotEmpty){
+            final curMap = curList[curList.length - 1].data();
+            return ChatDetailItemData(
+              userId: curMap['userId'],
+              sendTime: curMap['sendTime'], //item.id,
+              chatText: curMap['text'],
+              isDelivered: curMap['isDelivered'],
+            );
+          }
+          else { return ChatDetailItemData.empty(); }
+        });
   }
 }

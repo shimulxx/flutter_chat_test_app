@@ -29,6 +29,7 @@ void _registerChatList(){
     googleLogoutUseCase: di(),
     getUserChatListStreamUseCase: di(),
   ));
+  di.registerLazySingleton<SingleStreamUseCase>(() => SingleStreamUseCaseImp(repository: di()));
 }
 
 void _registerChatDetails(){
