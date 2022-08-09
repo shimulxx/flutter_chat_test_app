@@ -10,7 +10,7 @@ const kChatListScreen = 'chatListScreen';
 const kDefaultRoute = '/';
 
 //date time format
-const kAppDateTimeFormat = 'MM-dd-yy hh:mm:ss';
+const kAppDateTimeFormat = 'dd MMMM, yyyy hh:mm a';
 
 //time server base url
 const kTimeServerBaseUrl = 'http://worldtimeapi.org/api/';
