@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../app_variable/sign_in_condition.dart';
 import '../../../screen/alert_dialog/data_model/drop_down_data.dart';
+import '../../core/constants.dart';
 import '../../screen/chat_details_screen/data_model/chat_detail_item_data.dart';
 import '../../screen/chat_list_screen/data_model/chat_item_data.dart';
 
@@ -23,9 +27,15 @@ class RepositoryImp implements Repository{
   final GoogleSignIn googleSignIn;
   final FirebaseAuth firebaseInstance;
   final FirebaseFirestore fireStoreInstance;
+  final Dio dio;
   User? user;
 
-  RepositoryImp({required this.googleSignIn, required this.firebaseInstance, required this.fireStoreInstance});
+  RepositoryImp({
+    required this.googleSignIn, 
+    required this.firebaseInstance, 
+    required this.fireStoreInstance,
+    required this.dio,
+  });
 
   @override
   Future<User?> getUser() async{
@@ -176,6 +186,7 @@ class RepositoryImp implements Repository{
               sendTime: curMap['sendTime'], //item.id,
               chatText: curMap['text'],
               isDelivered: curMap['isDelivered'],
+              epocTime: curMap['epocTime'],
             ));
           }
           return curList;
@@ -185,13 +196,18 @@ class RepositoryImp implements Repository{
 
   @override
   Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId}) async{
-    final newData = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats').doc(curData.sendTime);
-    await newData.set({
-      'text': curData.chatText,
-      'isDelivered': curData.isDelivered,
-      'userId': curData.userId,
-      'sendTime': curData.sendTime,
-    });
+    final response = await dio.get(kDhakaApi);
+    if(response.statusCode == 200){
+      final epocTime = jsonDecode(response.data)['unixtime'].toString();
+      final newData = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats').doc(epocTime);
+      await newData.set({
+        'text': curData.chatText,
+        'isDelivered': curData.isDelivered,
+        'userId': curData.userId,
+        'sendTime': curData.sendTime,
+        'epocTime': epocTime,
+      });
+    }
   }
 
   @override

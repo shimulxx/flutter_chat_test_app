@@ -1,5 +1,5 @@
 class ChatDetailItemData{
-  final String chatText, sendTime, userId;
+  final String chatText, sendTime, userId, epocTime;
   final bool isDelivered;
 
   const ChatDetailItemData({
@@ -7,6 +7,7 @@ class ChatDetailItemData{
     required this.sendTime,
     required this.chatText,
     required this.isDelivered,
+    this.epocTime = '',
   });
 
   factory ChatDetailItemData.empty(){
@@ -15,6 +16,7 @@ class ChatDetailItemData{
       sendTime: '',
       chatText: '',
       isDelivered: false,
+      epocTime: '',
     );
   }
 }

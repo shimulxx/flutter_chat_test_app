@@ -22,7 +22,7 @@ class ChatRoomDetailsCubit extends Cubit<ChatRoomDetailsState>{
       final curItem = detailData[i];
       if(curItem.userId != curUserId){
         if(curItem.isDelivered) { break; }
-        else{ list.add(curItem.sendTime); }
+        else{ list.add(curItem.epocTime); }
       }
     }
     updateDeliveryUseCase.updateDelivery(updateList: list, chatRoomId: curRoomId);

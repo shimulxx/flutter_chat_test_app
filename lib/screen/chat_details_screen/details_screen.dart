@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_test_app/core/constants.dart';
 import 'package:flutter_chat_test_app/screen/chat_details_screen/controller/chat_room_details_cubit.dart';
 import 'package:flutter_chat_test_app/screen/chat_details_screen/controller/chat_room_details_state.dart';
+import '../../date_time/date_time_use_cases.dart';
+import '../../injection_work.dart';
 import '../chat_list_screen/data_model/chat_item_data.dart';
 import 'chat_text_field.dart';
 import 'data_model/chat_detail_item_data.dart';
@@ -59,7 +62,7 @@ class ChatDetailsScreenBody extends StatelessWidget {
               final curData = ChatDetailItemData(
                 chatText: value,
                 isDelivered: false,
-                sendTime: DateTime.now().toString().split('.')[0],
+                sendTime: di<AppDateTimeFormatUseCase>().curTime(),
                 userId: bloc.curUserId,
               );
               bloc.onChangeText(data: curData);

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_test_app/api/repository/repository.dart';
 import 'package:flutter_chat_test_app/app_router.dart';
@@ -9,11 +10,14 @@ import 'package:flutter_chat_test_app/screen/login_screen/controller/login_cubit
 import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'api/use_cases/cases.dart';
+import 'core/constants.dart';
+import 'date_time/date_time_use_cases.dart';
 
 final di = GetIt.I;
 
-void registerAllDependency() async{
+void registerAllDependency(){
   _registerChatList();
   _registerAppRouter();
   _registerAlertDialog();
@@ -21,8 +25,30 @@ void registerAllDependency() async{
   _registerProfile();
   _registerChatDetails();
   _registerLogin();
-  await di.allReady();
+  _registerDateTime();
+  _registerDio();
 }
+
+void _registerDio(){
+  //register dio base options
+  di.registerLazySingleton<BaseOptions>(() => BaseOptions(
+    baseUrl: kTimeServerBaseUrl,
+    responseType: ResponseType.plain,
+    connectTimeout: 15 * 1000,
+    receiveTimeout: 15 * 1000,
+    validateStatus: (status) => status! < 500,
+  ));
+  //register dio
+  di.registerLazySingleton<Dio>(() => Dio(di()));
+}
+
+void _registerDateTime(){
+  //register date format
+  di.registerLazySingleton<DateFormat>(() => DateFormat(kAppDateTimeFormat));
+  //register app date time format
+  di.registerLazySingleton<AppDateTimeFormatUseCase>(() => AppDateTimeFormatUseCaseImp(dateFormat: di()));
+}
+
 
 void _registerChatList(){
   di.registerFactory<ChatListScreenCubit>(() => ChatListScreenCubit(
@@ -68,6 +94,7 @@ void _registerRepo(){
     googleSignIn: di(),
     firebaseInstance: di(),
     fireStoreInstance: di(),
+    dio: di()
   ));
   di.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
   di.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);

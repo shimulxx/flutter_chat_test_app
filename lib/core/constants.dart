@@ -8,3 +8,10 @@ const kProfileScreen = 'profileScreen';
 const kChatDetailsScreen = 'chatDetailsScreen';
 const kChatListScreen = 'chatListScreen';
 const kDefaultRoute = '/';
+
+//date time format
+const kAppDateTimeFormat = 'MM-dd-yy hh:mm:ss';
+
+//time server base url
+const kTimeServerBaseUrl = 'http://worldtimeapi.org/api/';
+const kDhakaApi = 'timezone/Asia/Dhaka';
