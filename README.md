@@ -4,7 +4,7 @@ A basic flutter chat application make by using firebase cloud.
 
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/1.png" width="360" height="760" />
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/2.png" width="360" height="760" />
-<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/3.png" width="360" height="760" />
+<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/3.jpg" width="360" height="760" />
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/4.png" width="360" height="760" />
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/5.png" width="360" height="760" />
 
