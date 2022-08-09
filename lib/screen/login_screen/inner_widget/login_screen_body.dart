@@ -14,7 +14,7 @@ class LoginScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<LoginCubit>();
     return Center(
-      child: BlocListener<LoginCubit, LoginState>(
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state){
           print('state condition :${state.isLoggedIn}');
           if(state.hasError) {
@@ -24,9 +24,10 @@ class LoginScreenBody extends StatelessWidget {
             Navigator.of(context).pushReplacementNamed(kChatListScreen);
           }
         },
-        child: LoginButton(
-          onPressed: cubit.onPressLogin,
-        ),
+        builder: (context, state){
+          if(state.isLoading){ return const CircularProgressIndicator(); }
+          else{ return LoginButton(onPressed: cubit.onPressLogin); }
+        },
       ),
     );
   }
