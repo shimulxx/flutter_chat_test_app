@@ -7,6 +7,8 @@ Due to signature mismatch github code will not work, so you will need to downloa
 
 <a href="https://drive.google.com/file/d/1YsluffJdma_cu9AbiSQrWkx6Za22CzBQ/view?usp=sharing">DOWNLOAD APK FROM HERE!</a>
 
+## Screenshots
+
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/1.png" width="360" height="760" />
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/2.png" width="360" height="760" />
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/3.jpg" width="360" height="760" />
