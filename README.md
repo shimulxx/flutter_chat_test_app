@@ -1,16 +1,18 @@
 # flutter_chat_test_app
 
-A new Flutter project.
+A basic flutter chat application make by using firebase cloud.
 
-## Getting Started
+<img src="https://github.com/omar313/top_flutter_repo/blob/master/data/screenshot1.png" width="360" height="760" />
 
-This project is a starting point for a Flutter application.
+<img src="https://github.com/omar313/top_flutter_repo/blob/master/data/screenshot2.png" width="360" height="760" />
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Project Description
+Google sign in, chat list, chat details, profile, add user is used here.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Application
+For state management I have used cubit (which is super class of bloc) here.
+
+## Used Procedure
+First a user have to login then he/she can add user. Here chat room is one to one and user to user has
+one to many relationship. This is basically a test application. Thank you........
