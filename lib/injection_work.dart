@@ -33,8 +33,14 @@ void _registerChatList(){
 
 void _registerChatDetails(){
   di.registerLazySingleton<GetUserChatDetailsStreamUseCase>(() => GetUserChatDetailsStreamUseCaseImp(repository: di()));
-  di.registerFactory<ChatRoomDetailsCubit>(() => ChatRoomDetailsCubit(getUserChatDetailsStreamUseCase: di()));
+  di.registerFactory<ChatRoomDetailsCubit>(() => ChatRoomDetailsCubit(
+    getUserChatDetailsStreamUseCase: di(),
+    chatSendUseCase: di(),
+    updateDeliveryUseCase: di(),
+  ));
   di.registerLazySingleton<GetUserStrUseCase>(() => GetUserStrUseCaseImp(repository: di()));
+  di.registerLazySingleton<ChatSendUseCase>(() => ChatSendUseCaseImp(repository: di()));
+  di.registerLazySingleton<UpdateDeliveryUseCase>(() => UpdateDeliveryUseCaseImp(repository: di()));
 }
 
 void _registerAppRouter(){

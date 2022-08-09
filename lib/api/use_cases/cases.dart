@@ -63,7 +63,7 @@ class ChatRoomCreateUseCaseImp implements ChatRoomCreateUseCase{
 }
 
 abstract class GetUserChatListStreamUseCase{
-  Stream<List<ChatItemData>?> getStreamChatItemData();
+  Stream<List<ChatItemData>> getStreamChatItemData();
 }
 
 class GetUserChatListStreamUseCaseImp implements GetUserChatListStreamUseCase{
@@ -72,7 +72,7 @@ class GetUserChatListStreamUseCaseImp implements GetUserChatListStreamUseCase{
   GetUserChatListStreamUseCaseImp({required this.repository});
 
   @override
-  Stream<List<ChatItemData>?> getStreamChatItemData() {
+  Stream<List<ChatItemData>> getStreamChatItemData() {
     return repository.getStreamChatItemData();
   }
 }
@@ -105,6 +105,36 @@ class GetUserStrUseCaseImp implements GetUserStrUseCase{
   String? get userString {
     return repository.getCurrentUserStr();
   }
-
 }
 
+abstract class ChatSendUseCase{
+  Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId});
+}
+
+class ChatSendUseCaseImp implements ChatSendUseCase{
+  final Repository repository;
+
+  ChatSendUseCaseImp({required this.repository});
+
+  @override
+  Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId}) {
+    return repository.sendCurrentData(curData: curData, chatRoomId: chatRoomId);
+  }
+}
+
+abstract class UpdateDeliveryUseCase{
+  Future<void> updateDelivery({required List<String> updateList, required String chatRoomId});
+}
+
+class UpdateDeliveryUseCaseImp implements UpdateDeliveryUseCase{
+
+  final Repository repository;
+
+  UpdateDeliveryUseCaseImp({required this.repository});
+
+  @override
+  Future<void> updateDelivery({required List<String> updateList, required String chatRoomId}) {
+    return repository.updateDelivery(updateList: updateList, chatRoomId: chatRoomId);
+  }
+
+}

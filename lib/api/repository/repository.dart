@@ -14,6 +14,8 @@ abstract class Repository{
   Stream<List<ChatItemData>> getStreamChatItemData();
   Stream<List<ChatDetailItemData>> getStreamChatDetailsItemData({required String chatRoomId});
   String? getCurrentUserStr();
+  Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId});
+  Future<void> updateDelivery({required List<String> updateList, required String chatRoomId});
 }
 
 class RepositoryImp implements Repository{
@@ -141,7 +143,6 @@ class RepositoryImp implements Repository{
   Stream<List<ChatItemData>> getStreamChatItemData() {
     return _userCollectionCloud.doc(_userIdLocalStr).collection('chatList')
         .snapshots().asyncMap((snapShot) async{
-          print('grab');
           final curData = snapShot.docs;
           final curList = <ChatItemData>[];
           for(var item in curData){
@@ -170,8 +171,8 @@ class RepositoryImp implements Repository{
           for(var item in curData){
             final curMap = item.data();
             curList.add(ChatDetailItemData(
-              userId: _userIdLocalStr!,
-              sendTime: item.id,
+              userId: curMap['userId'],
+              sendTime: curMap['sendTime'], //item.id,
               chatText: curMap['text'],
               isDelivered: curMap['isDelivered'],
             ));
@@ -179,5 +180,31 @@ class RepositoryImp implements Repository{
           return curList;
         }
     );
+  }
+
+  @override
+  Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId}) async{
+    final newData = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats').doc(curData.sendTime);
+    await newData.set({
+      'text': curData.chatText,
+      'isDelivered': curData.isDelivered,
+      'userId': curData.userId,
+      'sendTime': curData.sendTime,
+    });
+  }
+
+  @override
+  Future<void> updateDelivery({required List<String> updateList, required String chatRoomId}) async{
+    print(updateList);
+    if(updateList.isNotEmpty){
+      final curChats = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats');
+      for(var i = 0; i < updateList.length; ++i){
+        final curItem = updateList[i];
+        final oldItem = curChats.doc(curItem);
+        final mp = (await oldItem.get()).data()!;
+        mp['isDelivered'] = true;
+        oldItem.update(mp);
+      }
+    }
   }
 }

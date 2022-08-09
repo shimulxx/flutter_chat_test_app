@@ -17,7 +17,6 @@ class _ChatTextFieldState extends State<ChatTextField> {
   final focusNode = FocusNode();
   bool isOnFocus = false;
 
-
   @override
   void didUpdateWidget(covariant ChatTextField oldWidget) {
     super.didUpdateWidget(oldWidget);

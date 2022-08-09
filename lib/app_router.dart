@@ -50,11 +50,11 @@ class AppRouter {
         final String chatRoomId = list[0];
         final String name = list[1];
         final String imageUrl = list[2];
-        final String? curUserId = di<GetUserStrUseCase>().userString;
+        final String curUserId = di<GetUserStrUseCase>().userString!;
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-              create: (context) => di<ChatRoomDetailsCubit>()..loadData(roomId: chatRoomId),
-              child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl, curUserId: curUserId!,),
+              create: (context) => di<ChatRoomDetailsCubit>()..loadData(roomId: chatRoomId, uId: curUserId),
+              child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl),
             ));
       default:
         return null;

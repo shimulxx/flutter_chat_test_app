@@ -51,19 +51,19 @@ class ChatListBody extends StatelessWidget {
           const SizedBox(height: 10),
           BlocBuilder<ChatListScreenCubit, ChatListScreenState>(
             builder: (context, state) {
-              print(state.streamList);
               return StreamBuilder<List<ChatItemData>>(
-                stream: state.streamList?.cast(),
+                stream: state.streamList,
                 builder: (context, snapshot) {
                   if(snapshot.hasData){
                     final curList = snapshot.data!;
-                    print('streamList: $curList');
                     return ChatListScreen(
                       list: curList,
                       searchKey: state.searchKey,
                     );
                   }
-                  else { return const Center(child: CircularProgressIndicator()); }
+                  else {
+                    return const Expanded(child: Center(child: CircularProgressIndicator()));
+                  }
                 }
               );
             },

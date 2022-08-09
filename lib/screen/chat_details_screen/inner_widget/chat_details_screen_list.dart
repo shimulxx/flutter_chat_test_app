@@ -59,7 +59,6 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           final curItem = _innerList[index];
-          print('$index  $_innerUserId  ${curItem.userId}');
           return ChatDetailsListItem(
             chatText: curItem.chatText,
             isDelivered: curItem.isDelivered,

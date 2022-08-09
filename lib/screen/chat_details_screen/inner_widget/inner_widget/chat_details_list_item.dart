@@ -23,7 +23,7 @@ class ChatDetailsListItem extends StatelessWidget {
             : EdgeInsets.only(left: width, right: 10, top: 8),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: self ? Colors.red : Colors.black12,
+          color: self ? Colors.red.withOpacity(0.7) : Colors.black12,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
