@@ -196,9 +196,11 @@ class RepositoryImp implements Repository{
 
   @override
   Future<void> sendCurrentData({required ChatDetailItemData curData, required String chatRoomId}) async{
-    final response = await dio.get(kDhakaApi);
+    //final response = await dio.get(kDhakaApi);
+    final response = await dio.get(kEstNow);
     if(response.statusCode == 200){
-      final epocTime = jsonDecode(response.data)['unixtime'].toString();
+      //final epocTime = jsonDecode(response.data)['unixtime'].toString();
+      final epocTime = jsonDecode(response.data)['currentFileTime'].toString();
       final newData = _chatRoomCollectionCloud.doc(chatRoomId).collection('chats').doc(epocTime);
       await newData.set({
         'text': curData.chatText,

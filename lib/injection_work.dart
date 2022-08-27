@@ -32,7 +32,8 @@ void registerAllDependency(){
 void _registerDio(){
   //register dio base options
   di.registerLazySingleton<BaseOptions>(() => BaseOptions(
-    baseUrl: kTimeServerBaseUrl,
+    //baseUrl: kTimeServerBaseUrl,
+    baseUrl: kTimeServerSecondBaseUrl,
     responseType: ResponseType.plain,
     connectTimeout: 15 * 1000,
     receiveTimeout: 15 * 1000,

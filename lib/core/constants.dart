@@ -15,3 +15,7 @@ const kAppDateTimeFormat = 'dd MMMM, yyyy hh:mm a';
 //time server base url
 const kTimeServerBaseUrl = 'http://worldtimeapi.org/api/';
 const kDhakaApi = 'timezone/Asia/Dhaka';
+
+//time server second base url
+const kTimeServerSecondBaseUrl = 'http://worldclockapi.com/api/json/';
+const kEstNow = 'est/now';
