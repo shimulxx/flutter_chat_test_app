@@ -22,9 +22,6 @@ class ChatDetailsScreenBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ChatRoomDetailsCubit>();
-    final bool isKeyboardVisible = KeyboardVisibilityProvider.isKeyboardVisible(context);
-    //this visible flag is not necessary since internal controller is already controlled with rebuild
-    print(isKeyboardVisible);
     return Scaffold(
       appBar: AppBarChatDetailsScreen(name: name, imageUrl: imageUrl),
       body: Column(

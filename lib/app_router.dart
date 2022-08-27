@@ -55,7 +55,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
               create: (context) => di<ChatRoomDetailsCubit>()..loadData(roomId: chatRoomId, uId: curUserId),
-              child: KeyboardVisibilityProvider(child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl)),
+              child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl),
             ));
       default:
         return null;
