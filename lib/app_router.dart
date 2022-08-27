@@ -10,6 +10,7 @@ import 'package:flutter_chat_test_app/screen/login_screen/inner_widget/login_scr
 import 'package:flutter_chat_test_app/screen/login_screen/login_screen.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/controller/profile_screen_cubit.dart';
 import 'package:flutter_chat_test_app/screen/profile_screen/profile_screen_body.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'api/use_cases/cases.dart';
 import 'app_variable/sign_in_condition.dart';
@@ -54,7 +55,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
               create: (context) => di<ChatRoomDetailsCubit>()..loadData(roomId: chatRoomId, uId: curUserId),
-              child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl),
+              child: KeyboardVisibilityProvider(child: ChatDetailsScreenBody(name: name, imageUrl: imageUrl)),
             ));
       default:
         return null;
