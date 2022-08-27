@@ -5,7 +5,7 @@ A basic flutter chat application make by using firebase cloud.
 # Download link
 Due to signature mismatch github code will not work, so you will need to download the apk file from the following link:
 
-<a href="https://drive.google.com/file/d/1YsluffJdma_cu9AbiSQrWkx6Za22CzBQ/view?usp=sharing">DOWNLOAD APK FROM HERE!</a>
+<a href="https://drive.google.com/file/d/1vyEf3t9btWmnvzddJLJZzDUdZ3eAqEdY/view?usp=sharing">DOWNLOAD APK FROM HERE!</a>
 
 ## Screenshots
 
