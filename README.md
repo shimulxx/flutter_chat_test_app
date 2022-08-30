@@ -9,10 +9,91 @@ Due to signature mismatch github code will not work, so you will need to downloa
 
 ## Screenshots
 
-<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/1.png" width="360" height="760" />
-<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/2.png" width="360" height="760" />
-<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/3.jpg" width="360" height="760" />
-<img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/4.png" width="360" height="760" />
+<style>
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="img_5terre.jpg">
+      <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/1.png" width="360" height="760" />
+    </a>
+  </div>
+</div>
+
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="img_forest.jpg">
+      <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/2.png" width="360" height="760" />
+    </a>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="img_lights.jpg">
+      <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/4.png" width="360" height="760" />
+    </a>
+  </div>
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="img_mountains.jpg">
+     <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/3.jpg" width="360" height="760" />
+    </a>
+  </div>
+</div>
+
+
+
+
 <img src="https://github.com/shimulxx/flutter_chat_test_app/blob/master/scrshot/5.png" width="360" height="760" />
 
 
