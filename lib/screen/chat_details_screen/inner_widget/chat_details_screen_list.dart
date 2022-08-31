@@ -25,37 +25,42 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
   late var _innerUserId = widget.curUserId;
   late final keyboardVisibilityController = KeyboardVisibilityController();
   late StreamSubscription<bool> _keyboardSubscription;
+  var _disposeIsCalled = false;
 
   void _scrollDownWork() {
     _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
-  void _scrollDown() async{
-    await Future.delayed(const Duration(milliseconds: 300));
-    WidgetsBinding.instance?.addPostFrameCallback((_) => _scrollDownWork());
+  Future<void> _scrollDown({bool isFromDidUpdate = false}) async{
+    if(isFromDidUpdate){
+      await Future.delayed(const Duration(milliseconds: 300));
+    }
+    WidgetsBinding.instance?.addPostFrameCallback((_){
+      if(!_disposeIsCalled) _scrollDownWork();
+    });
   }
 
   @override
   void initState() {
     _keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
         //print('Keyboard visibility update. Is visible: $visible');
-        _scrollDown();
+        _scrollDown(isFromDidUpdate: true);
     });
     _scrollDown();
     super.initState();
   }
 
   @override
-  void didUpdateWidget(covariant ChatDetailsScreenListBody oldWidget) {
+  void didUpdateWidget(covariant ChatDetailsScreenListBody oldWidget){
     //print('did update called');
     _innerList = widget.list;
     _innerUserId = widget.curUserId;
-   _scrollDown();
     super.didUpdateWidget(oldWidget);
   }
 
   @override
-  void dispose() {
+  void dispose(){
+    _disposeIsCalled = true;
     _keyboardSubscription.cancel();
     _controller.dispose();
     super.dispose();
