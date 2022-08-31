@@ -31,8 +31,8 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
     _controller.jumpTo(_controller.position.maxScrollExtent);
   }
 
-  Future<void> _scrollDown({bool isFromDidUpdate = false}) async{
-    if(isFromDidUpdate){
+  Future<void> _scrollDown({bool isFromKeyboardListen = false}) async{
+    if(isFromKeyboardListen){
       await Future.delayed(const Duration(milliseconds: 300));
     }
     WidgetsBinding.instance?.addPostFrameCallback((_){
@@ -44,7 +44,7 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
   void initState() {
     _keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
         //print('Keyboard visibility update. Is visible: $visible');
-        _scrollDown(isFromDidUpdate: true);
+        _scrollDown(isFromKeyboardListen: true);
     });
     _scrollDown();
     super.initState();
@@ -52,9 +52,9 @@ class _ChatDetailsScreenListBodyState extends State<ChatDetailsScreenListBody> {
 
   @override
   void didUpdateWidget(covariant ChatDetailsScreenListBody oldWidget){
-    //print('did update called');
     _innerList = widget.list;
     _innerUserId = widget.curUserId;
+    _scrollDown();
     super.didUpdateWidget(oldWidget);
   }
 
